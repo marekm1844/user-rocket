@@ -15,12 +15,18 @@ pub mod handlers;
 pub mod model;
 pub mod schema;
 
-use rocket::config::{Config, Environment};
+use rocket::config::{Config, Environment, LoggingLevel};
 
+#[get("/")]
+fn hello() -> String {
+    format!("Hello")
+}
 fn main() {
     let config = Config::build(Environment::Production)
         .address("127.0.0.1")
         .port(8088)
+        .log_level(LoggingLevel::Critical)
+        .keep_alive(0)
         .workers(8)
         .unwrap();
 
